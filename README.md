@@ -63,7 +63,7 @@ Happy hunting!
 ## Usage
 ```
 bash
-<br>
+
   $ sudo chmod +x daily_malIDC.sh
   $ sudo ./daily_malIDC.sh
 ```
