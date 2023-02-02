@@ -25,7 +25,7 @@
   <a href="#related">Related</a>
 </p>
 
-![malIDC_Test_Vid](https://cdn.discordapp.com/attachments/565201271418519554/1070722146390782022/malIDC_Test_Vid.gif)
+![malIDC_Test_Vid](https://user-images.githubusercontent.com/29038060/216363288-ef248c6e-5525-45a5-aa3c-4f4adf16f770.gif)
 
 
 
