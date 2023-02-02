@@ -62,8 +62,10 @@ Happy hunting!
 
 ## Usage
 ```
-  @ sudo chmod +x daily_malIDC.sh
-  @ sudo ./daily_malIDC.sh
+bash
+<br>
+  $ sudo chmod +x daily_malIDC.sh
+  $ sudo ./daily_malIDC.sh
 ```
 
 * Structure
