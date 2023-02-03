@@ -133,14 +133,15 @@ echo ""
 #searchRes=$(find "$dailyDir" -name "$fName" -type f)
 #echo "[INFO] Searching complete."  2>> $dailyLog
 
-if [ ! -e $lfName ]; then
-        echo "[ERROR] daily malware sample has already exist!" 2>> $dailyLog
+if [ -f $lfName ]; then
+        echo "[INFO] daily malware sample has already exist!" 2>> $dailyLog
 else
 	echo "[INFO] Today's malware sample has not been downloaded yet"
         echo "  [!] Starting download daily malware samples.." 2>> $dailyLog
         echo ""
         # download daily malware samples
         reqDownload=$(wget -N https://datalake.abuse.ch/malware-bazaar/daily/"$daily_date".zip) >> $dailyLog
+	#reqDownTemp=$(wget -N https://datalake.abuse.ch/malware-bazaar/daily/2023-01-29.zip)
 fi
 
 
