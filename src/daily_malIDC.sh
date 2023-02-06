@@ -104,11 +104,11 @@ echo ""
 
 
 # make malware dataCenter
-echo "[`date +%r`]  [INFO] Initiate checking malware IDC repository..." 2>> $dailyLog
+echo "[`date +%r`]  [INFO] Initiate checking malware IDC repository..." >> $dailyLog
 if [ -d $shelterDir ]; then
         echo "  [*] Entering malware DataCenter.." 
 	cd $shelterDir
-	echo "  [+] Complete check malware IDC repository with no ploblem." 2>> $dailyLog
+	echo "  [+] Complete check malware IDC repository with no ploblem." >> $dailyLog
 else
         echo "  [!] Malware DataCenter not founded !"
         echo "  [*] Create malware repo directory.."
@@ -122,17 +122,17 @@ echo ""
 
 
 # Check disk for download shelter
-echo "[`date +%r`]  [INFO] Cheking download shelter repository.." 2>> $dailyLog
+echo "[`date +%r`]  [INFO] Cheking download shelter repository.." >> $dailyLog
 if [ ! mountpoint -q $shelterMountPoint ]; then
         echo "[ERROR] Download shelter not mounted !" 2>> $mountLog
 
         if [! mountpoint -q $shelterMountPoint ]; then
-                echo "[CRITICAL] Download Shelter Mount fail !" 2>> $mountLog
-                echo "  [!] Initiate auto unmount protocol" 2>> $mountLog
+                echo "[CRITICAL] Download Shelter Mount fail !" >> $mountLog
+                echo "  [!] Initiate auto unmount protocol" >> $mountLog
                 umount -f $shelterMountPoint
         fi
 else
-        echo "  [+] Complete checking download shelter repotitory." 2>> $dailyLog
+        echo "  [+] Complete checking download shelter repotitory." >> $dailyLog
 fi
 
 echo ""
@@ -157,7 +157,7 @@ reqFileName=`date +%Y-%m-`$reqDate
 
 
 if [ -f $lfName ]; then
-        echo "[`date +%r`]  [INFO] daily malware sample has already exist!" 2>> $dailyLog
+        echo "[`date +%r`]  [INFO] daily malware sample has already exist!" >> $dailyLog
 else
 	echo "[`date +%r`]  [INFO] Today's malware sample has not been downloaded yet"
         echo "  [!] Starting download daily malware samples.." 2>> $dailyLog
@@ -178,11 +178,11 @@ echo ""
 echo "#======================================================#"
 
 if [ -e ]; then
-        echo "[`date +%r`]  [SUCCESS] Download malware sample complete." 2>> $dailyLog
+        echo "[`date +%r`]  [SUCCESS] Download malware sample complete." >> $dailyLog
         echo "     ->  file name : " $fName 2>> $dailyLog
         echo "     ->  direction : " $lfName 2>> $dailyLog
 else
-        echo "[[`date +%r`]  ERROR] Failure download malware sample." 2>> $dailyLog
+        echo "[[`date +%r`]  ERROR] Failure download malware sample." >> $dailyLog
 fi
 echo "#======================================================#"
 echo ""
