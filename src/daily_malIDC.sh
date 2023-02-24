@@ -15,9 +15,9 @@ logPwd=$(pwd)
 cd $rootPwd
 
 # general log variable
-logDir="$logPwd"/log
+logDir=/log
 
-dailyLogDir="$logDir"/daily/
+dailyLogDir=$logPwd$logDir/daily/
 daily_LogFileName="$daily_date"_daily.log
 dailyLog="$dailyLogDir$daily_LogFileName"
 
@@ -149,10 +149,14 @@ echo ""
 # make request file name
 curDate=`date +%d`
 tmpDate=$(expr $curDate - 1)
-reqDate="0$tmpDate"
+reqDate="$tmpDate"
 
-reqFileName=`date +%Y-%m-`$reqDate
-
+if [ $(expr $reqDate) == 1 ]; then
+	reqFileName=`date +%Y-%m-`0$reqDate
+	
+else
+	reqFileName=`date +%Y-%m-`$reqDate
+fi
 
 
 
