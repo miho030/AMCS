@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # Global variable
-today=`date`
 shelterMountPoint=/mnt/malIDC_repository/
 shelterDir=/mnt/malIDC_repository/malDataCenter/
 DownloadDir=/mnt/malIDC_repository/malDataCenter/daily/
@@ -10,9 +9,9 @@ fName="$daily_date".zip
 lfName="$DownloadDir$fName"
 
 rootPwd=$(pwd)
-cd ..
+cd .. || return
 logPwd=$(pwd)
-cd $rootPwd
+cd $rootPwd || return
 
 # general log variable
 logDir=/log
@@ -53,7 +52,7 @@ echo "#======================================================#"
 echo ""
 echo ""
 
-echo "[`date +%r`]  [INFO] Initiating malIDC protocol"
+echo "[`date +%r`]  [INFO] Initiating malIDC protocol" 2>> "$dailyLog"
 echo ""
 
 echo "+------------------------------------------------------+"
@@ -61,78 +60,78 @@ echo ""
 
 
 # Check & making environment
-echo "[`date +%r`]  [INFO] Initiate checking environment..."
-if [ ! -d $logDir ]; then
-        echo "  [!] log directory not founded !"
-        echo "  [*] Create log directory.."
+echo "[`date +%r`]  [INFO] Initiate checking environment..." 2>> "$dailyLog"
+if [ ! -d "$logDir" ]; then
+        echo "  [!] log directory not founded !" 2>> "$dailyLog"
+        echo "  [*] Create log directory.." 2>> "$dailyLog"
 	# make log directory
-        mkdir $logDir
+        mkdir "$logDir"
 
-        echo "  [+] Complete create mother log directory"
+        echo "  [+] Complete create mother log directory" 2>> "$dailyLog"
 else
-        echo "  [+] Complete check environment with no ploblem."
+        echo "  [+] Complete check environment with no ploblem." 2>> "$dailyLog"
 fi
 echo ""
 
 
-echo "[`date +%r`]  [INFO] Initiate checking daily log file..."
+echo "[`date +%r`]  [INFO] Initiate checking daily log file..." 2>> "$dailyLog"
 # make daily log directory
-if [ ! -d $dailLogDir ]; then
+if [ ! -d "$dailLogDir" ]; then
 	# make daily log directory
-        mkdir $dailyLogDir
+        mkdir "$dailyLogDir"
 else
-	echo "  [+] Complete create daily log file"
+	echo "  [+] Complete create daily log file" 2>> "$dailyLog"
 fi
 touch $dailyLog
 
 # make debug log directory
-if [ ! -d $debugLogDir ]; then
-	mkdir $debugLogDir
+if [ ! -d "$debugLogDir" ]; then
+	mkdir "$debugLogDir"
 else
-	echo "  [+] Complete create debug log file"
+	echo "  [+] Complete create debug log file" 2>> "$dailyLog"
 fi
-touch $debugLog
+touch "$debugLog"
 
 # make mount log directory
-if [ ! -d $mountLogDir ]; then
-	mkdir $mountLogDir
+if [ ! -d "$mountLogDir" ]; then
+	mkdir "$mountLogDir"
 else
 	echo "  [+] Complete create mount log file"
 fi
-touch $mountLog
+touch "$mountLog"
 echo ""
 
 
 # make malware dataCenter
-echo "[`date +%r`]  [INFO] Initiate checking malware IDC repository..." >> $dailyLog
-if [ -d $shelterDir ]; then
-        echo "  [*] Entering malware DataCenter.." 
-	cd $shelterDir
-	echo "  [+] Complete check malware IDC repository with no ploblem." >> $dailyLog
+echo "[`date +%r`]  [INFO] Initiate checking malware IDC repository..." 2>> "$dailyLog"
+if [ -d "$shelterDir" ]; then
+        echo "  [*] Entering malware DataCenter.." 2>> "$dailyLog"
+	cd "$shelterDir" || return
+	echo "  [+] Complete check malware IDC repository with no ploblem." >> "$dailyLog"
 else
-        echo "  [!] Malware DataCenter not founded !"
-        echo "  [*] Create malware repo directory.."
-        mkdir $shelterDir
-        cd $shelterDir
-        echo "  [+] Entering malware IDC repository complete."
-        echo "  [*] Current location is  :  $cur"
+        echo "  [!] Malware DataCenter not founded !" 2>> "$dailyLog"
+        echo "  [*] Create malware repo directory.." 2>> "$dailyLog"
+        mkdir "$shelterDir"
+        cd "$shelterDir" || return
+        echo "  [+] Entering malware IDC repository complete." 2>> "$dailyLog"
+	echo "  [*] Current location is  :  $(pwd)" 2>> "$dailyLog"
 fi
 echo ""
 
 
 
 # Check disk for download shelter
-echo "[`date +%r`]  [INFO] Cheking download shelter repository.." >> $dailyLog
-if [ ! mountpoint -q $shelterMountPoint ]; then
-        echo "[ERROR] Download shelter not mounted !" 2>> $mountLog
+echo "[`date +%r`]  [INFO] Cheking download shelter repository.." 2>> "$dailyLog"
+if [ ! mountpoint -q "$shelterMountPoint" ]; then
+        echo "[ERROR] Download shelter not mounted !" 2>> "$mountLog"
 
-        if [! mountpoint -q $shelterMountPoint ]; then
-                echo "[CRITICAL] Download Shelter Mount fail !" >> $mountLog
-                echo "  [!] Initiate auto unmount protocol" >> $mountLog
-                umount -f $shelterMountPoint
+        if [! mountpoint -q "$shelterMountPoint" ]; then
+                echo "[CRITICAL] Download Shelter Mount fail !" 2>> "$mountLog"
+                echo "  [!] Initiate auto unmount protocol" 2>> "$mountLog"
+                umount -f "$shelterMountPoint" || return
         fi
 else
-        echo "  [+] Complete checking download shelter repotitory." >> $dailyLog
+        echo "  [+] Complete checking download shelter repotitory." 2>> "$dailyLog"
 fi
 
 echo ""
@@ -148,46 +147,44 @@ echo ""
 
 # make request file name
 curDate=`date +%d`
-tmpDate=$(expr $curDate - 1)
-reqDate="$tmpDate"
+reqDate=$(expr $curDate - 1)
 
-if [ $(expr $reqDate) == 1 ]; then
-	reqFileName=`date +%Y-%m-`0$reqDate
+if [ "$reqDate" == *0* ]; then
+	reqFileName=`date +%Y-%m-`$reqDate
 	
 else
-	reqFileName=`date +%Y-%m-`$reqDate
+	reqFileName=`date +%Y-%m-`0$reqDate
 fi
 
 
 
-if [ -f $lfName ]; then
-        echo "[`date +%r`]  [INFO] daily malware sample has already exist!" >> $dailyLog
+if [ -f "$lfName" ]; then
+        echo "[`date +%r`]  [INFO] daily malware sample has already exist!" 2>> "$dailyLog"
 else
-	echo "[`date +%r`]  [INFO] Today's malware sample has not been downloaded yet"
-        echo "  [!] Starting download daily malware samples.." 2>> $dailyLog
+	echo "[`date +%r`]  [INFO] Today's malware sample has not been downloaded yet" 2>> "$dailyLog"
+        echo "  [!] Starting download daily malware samples.." 2>> "$dailyLog"
         echo ""
 
 	# move to malware sample shelter
-	cd $DownloadDir
+	cd "$DownloadDir" || return
 
         # download daily malware samples
         reqDownload=$(wget -N https://datalake.abuse.ch/malware-bazaar/daily/"$reqFileName".zip) >> $dailyLog
-	#reqDownTemp=$(wget -N https://datalake.abuse.ch/malware-bazaar/daily/2023-01-29.zip)
+
+	# inform download result
+	echo ""
+	echo ""
+	echo "#======================================================#"
+
+	if [ -f "$lfName" ]; then
+        	echo "[`date +%r`]  [SUCCESS] Download malware sample complete." 2>> "$dailyLog"
+        	echo "     ->  file name : " "$fName" 2>> "$dailyLog"
+        	echo "     ->  direction : " "$lfName" 2>> "$dailyLog"
+	else
+		echo "[[`date +%r`]  ERROR] Failure download malware sample." 2>> "$dailyLog"
+	fi
+	echo "#======================================================#"
+
 fi
-
-
-# inform download result
-echo ""
-echo ""
-echo "#======================================================#"
-
-if [ -e ]; then
-        echo "[`date +%r`]  [SUCCESS] Download malware sample complete." >> $dailyLog
-        echo "     ->  file name : " $fName 2>> $dailyLog
-        echo "     ->  direction : " $lfName 2>> $dailyLog
-else
-        echo "[[`date +%r`]  ERROR] Failure download malware sample." >> $dailyLog
-fi
-echo "#======================================================#"
 echo ""
 echo ""
