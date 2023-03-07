@@ -122,10 +122,10 @@ echo ""
 
 # Check disk for download shelter
 echo "[`date +%r`]  [INFO] Cheking download shelter repository.." 2>> "$dailyLog"
-if [ ! mountpoint -q "$shelterMountPoint" ]; then
+if ! mountpoint -q "$shelterMountPoint"; then
         echo "[ERROR] Download shelter not mounted !" 2>> "$mountLog"
 
-        if [! mountpoint -q "$shelterMountPoint" ]; then
+        if ! mountpoint -q "$shelterMountPoint"; then
                 echo "[CRITICAL] Download Shelter Mount fail !" 2>> "$mountLog"
                 echo "  [!] Initiate auto unmount protocol" 2>> "$mountLog"
                 umount -f "$shelterMountPoint" || return
