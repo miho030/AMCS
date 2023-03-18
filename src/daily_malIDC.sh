@@ -21,12 +21,12 @@ daily_LogFileName="$daily_date"_daily.log
 dailyLog="$dailyLogDir$daily_LogFileName"
 
 # Debug log variable
-debugLogDir="$logDir"/debug/
+debugLogDir="$logPwd$logDir"/debug/
 debug_LogFileName="$daily_date"_debug.log
-debugLog="$debugLogDir$debugi_LogFileName"
+debugLog="$debugLogDir$debug_LogFileName"
 
 # Mount log variable
-mountLogDir="$logDir"/mount/
+mountLogDir="$logPwd$logDir"/mount/
 mount_LogFileName="$daily_date"_mount.log
 mountLog="$mountLogDir$mount_LogFileName"
 
@@ -61,11 +61,11 @@ echo ""
 
 # Check & making environment
 echo "[`date +%r`]  [INFO] Initiate checking environment..." 2>> "$dailyLog"
-if [ ! -d "$logDir" ]; then
+if [ ! -d "$logPwd" ]; then
         echo "  [!] log directory not founded !" 2>> "$dailyLog"
         echo "  [*] Create log directory.." 2>> "$dailyLog"
 	# make log directory
-        mkdir "$logDir"
+        mkdir "$logPwd"
 
         echo "  [+] Complete create mother log directory" 2>> "$dailyLog"
 else
@@ -78,7 +78,7 @@ echo "[`date +%r`]  [INFO] Initiate checking daily log file..." 2>> "$dailyLog"
 # make daily log directory
 if [ ! -d "$dailLogDir" ]; then
 	# make daily log directory
-        mkdir "$dailyLogDir"
+        mkdir "$dailyLogDir" || return
 else
 	echo "  [+] Complete create daily log file" 2>> "$dailyLog"
 fi
@@ -86,7 +86,7 @@ touch $dailyLog
 
 # make debug log directory
 if [ ! -d "$debugLogDir" ]; then
-	mkdir "$debugLogDir"
+	mkdir "$debugLogDir" || return
 else
 	echo "  [+] Complete create debug log file" 2>> "$dailyLog"
 fi
@@ -94,7 +94,7 @@ touch "$debugLog"
 
 # make mount log directory
 if [ ! -d "$mountLogDir" ]; then
-	mkdir "$mountLogDir"
+	mkdir "$mountLogDir" || return
 else
 	echo "  [+] Complete create mount log file"
 fi
@@ -125,7 +125,7 @@ echo "[`date +%r`]  [INFO] Cheking download shelter repository.." 2>> "$dailyLog
 if ! mountpoint -q "$shelterMountPoint"; then
         echo "[ERROR] Download shelter not mounted !" 2>> "$mountLog"
 
-        if ! mountpoint -q "$shelterMountPoint"; then
+        if !mountpoint -q "$shelterMountPoint"; then
                 echo "[CRITICAL] Download Shelter Mount fail !" 2>> "$mountLog"
                 echo "  [!] Initiate auto unmount protocol" 2>> "$mountLog"
                 umount -f "$shelterMountPoint" || return
@@ -146,16 +146,7 @@ echo ""
 
 
 # make request file name
-curDate=`date +%d`
-reqDate=$(expr $curDate - 1)
-
-if [ "$reqDate" == *0* ]; then
-	reqFileName=`date +%Y-%m-`$reqDate
-	
-else
-	reqFileName=`date +%Y-%m-`0$reqDate
-fi
-
+reqFileName=$(date +%Y-%m-%d --date '1 days ago').zip
 
 
 if [ -f "$lfName" ]; then
@@ -169,7 +160,7 @@ else
 	cd "$DownloadDir" || return
 
         # download daily malware samples
-        reqDownload=$(wget -N https://datalake.abuse.ch/malware-bazaar/daily/"$reqFileName".zip) >> $dailyLog
+        reqDownload=$(wget -N https://datalake.abuse.ch/malware-bazaar/daily/"$reqFileName") >> $dailyLog
 
 	# inform download result
 	echo ""
