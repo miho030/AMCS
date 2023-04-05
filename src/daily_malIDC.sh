@@ -4,7 +4,8 @@
 shelterMountPoint=/mnt/malIDC_repository/
 shelterDir=/mnt/malIDC_repository/malDataCenter/
 DownloadDir=/mnt/malIDC_repository/malDataCenter/daily/
-daily_date=$(date --date="yesterday" +%Y-%m-%d)
+req_date=`date +%Y-%m-%d`
+curDate=[$req_date]
 fName="$daily_date".zip
 lfName="$DownloadDir$fName"
 
@@ -17,17 +18,17 @@ cd $rootPwd || return
 logDir=/log
 
 dailyLogDir=$logPwd$logDir/daily/
-daily_LogFileName="$daily_date"_daily.log
+daily_LogFileName="$curDate"_daily.log
 dailyLog="$dailyLogDir$daily_LogFileName"
 
 # Debug log variable
 debugLogDir="$logPwd$logDir"/debug/
-debug_LogFileName="$daily_date"_debug.log
+debug_LogFileName="$curDate"_debug.log
 debugLog="$debugLogDir$debug_LogFileName"
 
 # Mount log variable
 mountLogDir="$logPwd$logDir"/mount/
-mount_LogFileName="$daily_date"_mount.log
+mount_LogFileName="$curDate"_mount.log
 mountLog="$mountLogDir$mount_LogFileName"
 
 
@@ -52,7 +53,7 @@ echo "#======================================================#"
 echo ""
 echo ""
 
-echo "[`date +%r`]  [INFO] Initiating malIDC protocol" 2>> "$dailyLog"
+echo "$curDate[`date +%r`]  [INFO] Initiating malIDC protocol" 2>> "$dailyLog"
 echo ""
 
 echo "+------------------------------------------------------+"
@@ -78,27 +79,26 @@ echo "[`date +%r`]  [INFO] Initiate checking daily log file..." 2>> "$dailyLog"
 # make daily log directory
 if [ ! -d "$dailLogDir" ]; then
 	# make daily log directory
-        mkdir "$dailyLogDir" || return
+        mkdir "$dailyLogDir" || echo " [`date +%r`] [INFO] Complete create daily log file" 2>> "$dailyLog"
 else
-	echo "  [+] Complete create daily log file" 2>> "$dailyLog"
+	echo "[INFO] Daily log directory already exist!" && echo "  -> $dailyLogDir" 2>> "$dailyLog"
 fi
 touch $dailyLog
 
 # make debug log directory
 if [ ! -d "$debugLogDir" ]; then
-	mkdir "$debugLogDir" || return
+	mkdir "$debugLogDir" || echo " [`date +%r`] [INFO] Complete create debug log directory" 2>> "$dailyLog"
 else
-	echo "  [+] Complete create debug log file" 2>> "$dailyLog"
+	echo "[INFO] Debug log directory already exist!" && echo "  -> $debugLogDir" 2>> "$debugLog" 
 fi
 touch "$debugLog"
 
 # make mount log directory
 if [ ! -d "$mountLogDir" ]; then
-	mkdir "$mountLogDir" || return
+	mkdir "$mountLogDir" || echo " [`date +%r`] [INFO] Complete create mount log directory" 2>> "$dailyLog"
 else
-	echo "  [+] Complete create mount log file"
+	echo "[INFO] Mount log directory already exist!" echo "  -> $mountLogDir" 2>> "$debugLog"
 fi
-touch "$mountLog"
 echo ""
 
 
@@ -123,7 +123,8 @@ echo ""
 # Check disk for download shelter
 echo "[`date +%r`]  [INFO] Cheking download shelter repository.." 2>> "$dailyLog"
 if ! mountpoint -q "$shelterMountPoint"; then
-        echo "[ERROR] Download shelter not mounted !" 2>> "$mountLog"
+	touch "$mountLog"
+        echo "$curDate[`date +%r`] [ERROR] Download shelter not mounted !" 2>> "$mountLog"
 
         if !mountpoint -q "$shelterMountPoint"; then
                 echo "[CRITICAL] Download Shelter Mount fail !" 2>> "$mountLog"
@@ -131,7 +132,7 @@ if ! mountpoint -q "$shelterMountPoint"; then
                 umount -f "$shelterMountPoint" || return
         fi
 else
-        echo "  [+] Complete checking download shelter repotitory." 2>> "$dailyLog"
+	echo "[`date +%r`] [INFO] Complete check download shelter disk." 2>> "$dailyLog"
 fi
 
 echo ""
@@ -160,7 +161,7 @@ else
 	cd "$DownloadDir" || return
 
         # download daily malware samples
-        reqDownload=$(wget -N https://datalake.abuse.ch/malware-bazaar/daily/"$reqFileName") >> $dailyLog
+        reqDownload=$(wget -N https://datalake.abuse.ch/malware-bazaar/daily/"$reqFileName") >> "$dailyLog"
 
 	# inform download result
 	echo ""
