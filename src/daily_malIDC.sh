@@ -168,7 +168,7 @@ else
 	echo ""
 	echo "#======================================================#"
 
-	if [ -f "$lfName" ]; then
+	if [ -e "$DownloadDir$reqFileName" ]; then
         	echo "[`date +%r`]  [SUCCESS] Download malware sample complete." 2>> "$dailyLog"
         	echo "     ->  file name : " "$fName" 2>> "$dailyLog"
         	echo "     ->  direction : " "$lfName" 2>> "$dailyLog"
