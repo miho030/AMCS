@@ -3,11 +3,11 @@
   <br>
   <a href="http://www.amitmerchant.com/electron-markdownify"><img src="https://raw.githubusercontent.com/amitmerchant1990/electron-markdownify/master/app/img/markdownify.png" alt="Markdownify" width="200"></a>
   <br>
-  Daily malware collecting software (malIDC)
+  daily Malware Collecting Software (dMCS)
   <br>
 </h1>
 
-<h4 align="center">AOI::MalIDC , <a href="https://github.com/miho030" target="_blank">Github Profile</a></h4>
+<h4 align="center">AOI::dMCS , <a href="https://github.com/miho030" target="_blank">Github Profile</a></h4>
 
 <p align="center">
   <a href="#">
@@ -25,7 +25,7 @@
   <a href="#related">Related</a>
 </p>
 
-![malIDC_Test_Vid](./resource/malIDC_Test_Vid.gif)
+![dMCS_Test_Vid](./resource/dMCS_Test_Vid.gif)
 
 
 ## About
@@ -64,16 +64,16 @@ Happy hunting!
 ```
 bash
 
-  $ sudo chmod +x daily_malIDC.sh
-  $ sudo ./daily_malIDC.sh
+  $ sudo chmod +x daily_dMCS.sh
+  $ sudo ./daily_dMCS.sh
 ```
 
 * Structure
 
 ```bash
 ├─src
-│  ├─ daily_malIDC.sh
-│  └─ all_malIDC.sh
+│  ├─ daily_dMCS.sh
+│  └─ all_dMCS.sh
 │
 └─README.md
 ```
