@@ -1,4 +1,4 @@
-# Cuckoo SandBox 설치
+# Installing [Cuckoo Sandbox] instruction (WIP)
 
 ### Description
 ```
