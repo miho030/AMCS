@@ -1,0 +1,7 @@
+configparser
+datetime
+urlopen
+rich
+pyfiglet
+python-crontab
+pandas
