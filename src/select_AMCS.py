@@ -1,3 +1,8 @@
+"""
+* software author : github.com/miho030
+* software license : GPL2
+"""
+
 import os
 import configparser
 import signal
