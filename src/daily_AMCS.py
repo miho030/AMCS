@@ -1,3 +1,8 @@
+"""
+* software author : github.com/miho030
+* software license : GPL2
+"""
+
 import os, configparser, signal
 import threading
 from datetime import datetime
@@ -23,7 +28,7 @@ from rich.console import Console
 from rich.panel import Panel
 
 # ---------- import ini file
-iniFile="../amcs.ini" # 배포 전에 ./ 경로로 변경해야함.
+iniFile="./amcs.ini" # 배포 전에 경로 변경 필요
 config = configparser.ConfigParser()
 cl = Console()
 
