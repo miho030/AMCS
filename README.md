@@ -27,7 +27,9 @@
 
 <!-- ![AMCS_Test_Vid1](./resource/dMCS_Test_Vid.gif) -->
 
-![AMCS_Test_Vid2](./resource/AMCS_Python_Test_Vid.gif)
+<div style="text-align: center;">
+  <img src="./resource/AMCS_Python_Test_Vid.gif" alt="AMCS_Test_Vid2">
+</div>
 
 
 ## About
