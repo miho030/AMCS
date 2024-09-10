@@ -24,8 +24,9 @@
   <a href="#Structure">Usage</a> •
   <a href="#related">Related</a>
 </p>
-
+<--
 ![AMCS_Test_Vid1](./resource/dMCS_Test_Vid.gif)
+-->
 ![AMCS_Test_Vid2](./resource/AMCS_Python_Test_Vid.gif)
 
 
