@@ -7,7 +7,7 @@ from crontab import CronTab
 
 # ---------- software version and info
 author = "github.com/miho030"
-sfVersion = "v1.1"
+sfVersion = "v1.1.1"
 # ---------- ini file configurations
 iniFile="./amcs.ini"
 amcsDir = ""
@@ -96,7 +96,7 @@ def installPack():
     selectFile = amcsDir + 'select_AMCS.py'
 
     if (os.path.exists(dailyFile) == True) and (os.path.exists(selectFile) == True):
-        print("[*] source files are already exist!")
+        call_cli("AMCS source files already exist at install path!")
     else:
         shutil.copy(iniFile, amcsDir)
         shutil.copy('./src/daily_AMCS.py', amcsDir)
@@ -159,7 +159,7 @@ def main():
 
     elif resOS == 'lin':
         print("linux!")
-        make_malStorage() # 1
+        make_malStorage(str(resOS)) # 1
         installPack()
         register_package()
 
