@@ -42,6 +42,16 @@ So, it's designed to build your own malware collection server by only using any 
 Happy hunting!
 ```
 
+## Installation
+```
+bash
+  1. grant permission to installer.sh file
+    $ sudo chmod +x installer.sh
+
+  2. execute installer file
+    $ sudo ./installer.sh
+```
+
 
 ## Requirements
 
