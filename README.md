@@ -44,7 +44,6 @@ Happy hunting!
 
 ## Installation
 ```
-bash
   1. grant permission to installer.sh file
     $ sudo chmod +x installer.sh
 
