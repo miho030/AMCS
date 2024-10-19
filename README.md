@@ -31,7 +31,8 @@
 ## About
 
 ```
-This program is a shell script based, that automatically downloads new samples of malware file on a daily basis.
+AMCS (Automatic Malware Collecting Service),
+AMCS can provide bunch of malware samples at every day just for you!
 ```
 
 To be a good malware analyst, have to experience analyzing a wide variety of samples directly. However in reality, the first difficulty that people who dream of becoming a malware analyst face is getting a fresh malware samples.
