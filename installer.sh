@@ -46,6 +46,10 @@ fi
 # make new account for AMCS service
 useradd -m -s /bin/bash malwareCollector
 
+# grant permission for edit crontab for malwareCollecter user
+echo "malwareCollector" | sudo tee -a /etc/cron.allow
+
+
 echo "" && echo ""
 echo "[INFO] To secure malware collecting environment, AMCS account need new password."
 echo "\t > please change new password for AMCS account."
