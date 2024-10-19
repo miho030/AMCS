@@ -38,7 +38,6 @@ if [ -f "requirements.txt" ]; then
   python3.7 -m pip install -r requirements.txt
 else
   echo "requirements.txt 파일을 찾을 수 없습니다."
-  deactivate
   exit 1
 fi
 
