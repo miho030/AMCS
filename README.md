@@ -50,6 +50,10 @@ bash
 
   2. execute installer file
     $ sudo ./installer.sh
+
+  3. when the installer.sh file done thier process,
+     AMCS program will automatically download malware archive 
+     files at '/home/malwareCollector/AMCS/~' with EVERY DAY at AM 01:00
 ```
 
 
@@ -58,7 +62,6 @@ bash
 ```
   - Any linux system (with bash/usb terminal)
   - spare store device (ex:hdd/ssd/flash)
-
 ```
 
 * Test onboard
