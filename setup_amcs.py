@@ -128,7 +128,7 @@ def register_package():
     cronComm = str("python3 " + dailyFile)
     registerJob = cron.new(command=cronComm, comment="AMCS - daily malware archive downloader")
 
-    registerJob.setall('0 8 * * *')
+    registerJob.setall('0 1 * * *')
     #registerJob.every().dom()
     registerJob.enable()
 
