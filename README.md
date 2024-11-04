@@ -6,7 +6,6 @@
   daily Auto Malware Collecting Service (AMCS)
   <br>
 </h1>
-  <p>Former; malIDC</p>
 
 <h4 align="center">AOI::dMCS , <a href="https://github.com/miho030" target="_blank">Github Profile</a></h4>
 
