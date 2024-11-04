@@ -45,16 +45,12 @@ Happy hunting!
 
 ## Installation
 ```
-  1. grant permission to installer.sh file
-    $ sudo chmod +x installer.sh
+    $ sudo chmod +x installer.sh  # grant permission to installer.sh file
 
-  2. execute installer file
-    $ sudo ./installer.sh
-
-  3. when the installer.sh file done thier process,
-     AMCS program will automatically download malware archive 
-     files at '/home/malwareCollector/AMCS/~' with EVERY DAY at AM 01:00
+    $ sudo ./installer.sh  # execute installer file
 ```
+when the installer.sh file done thier process,AMCS program will automatically download malware archive 
+files at '/home/malwareCollector/AMCS/~' with EVERY DAY at AM 01:00
 
 
 ## Requirements
@@ -74,21 +70,30 @@ Happy hunting!
 
 
 ## Usage
+
+### Python version
+```
+python3
+
+  $ sudo chmod +x installer.sh
+  $ sudo ./installer.sh
+```
+### Bash version
 ```
 bash
 
   $ sudo chmod +x daily_dMCS.sh
   $ sudo ./daily_dMCS.sh
 ```
-
 * Structure
-
-```bash
-├─src
-│  ├─ daily_dMCS.sh
-│  └─ all_dMCS.sh
-│
-└─README.md
+```
+├─ src/
+├─ src_ShellScript/
+├─ tools/
+|
+├─ requirements.txt
+├─ installer.sh
+└─setup_amcs.py
 ```
 
 ## Related
