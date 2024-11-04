@@ -3,7 +3,8 @@
   <br>
   <a href="http://www.amitmerchant.com/electron-markdownify"><img src="https://raw.githubusercontent.com/amitmerchant1990/electron-markdownify/master/app/img/markdownify.png" alt="Markdownify" width="200"></a>
   <br>
-  daily Auto Malware Collecting Service (AMCS, ~~Former malIDC~~)
+  daily Auto Malware Collecting Service (AMCS)
+  <p>Former; malIDC</p>
   <br>
 </h1>
 
