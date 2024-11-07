@@ -26,7 +26,7 @@
 </p>
 
 <!-- ![AMCS_Test_Vid1](./resource/AMCS_short.gif) -->
-![AMCS_TestVid](https://cdn.discordapp.com/attachments/1034709358497509427/1303921369423282227/AMCS_short_original.gif?ex=672d82e8&is=672c3168&hm=b18deb01a632aeb543713e796a8536b778a95880b92036060a6851ae5f568c32&)
+![AMCS_Test_Vid1](https://cdn.discordapp.com/attachments/1034709358497509427/1303921369423282227/AMCS_short_original.gif?ex=672d82e8&is=672c3168&hm=b18deb01a632aeb543713e796a8536b778a95880b92036060a6851ae5f568c32&)
 
 
 ## About
