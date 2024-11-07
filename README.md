@@ -25,7 +25,7 @@
   <a href="#related">Related</a>
 </p>
 
-![AMCS_Test_Vid1](./resource/dMCS_Test_Vid.gif)
+![AMCS_Test_Vid1](./resource/AMCS_short.gif)
 
 
 ## About
