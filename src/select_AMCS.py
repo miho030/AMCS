@@ -40,10 +40,6 @@ author = config['INFO']['author']
 sfVersion = config['INFO']['sfVersion']
 MalSector = config['DB_CONFIG']['malstorage']
 
-# ---------- target malware sample information
-targetDate = date.today() - timedelta(1)
-targetYear = targetDate.year
-
 
 def call_datetime_cli(contents :str):
     curDateTime = datetime.now().strftime('[%Y-%m-%d | %H:%M:%S]')
@@ -111,7 +107,7 @@ def download_malware_archive(url: str, dest_dir: str):
             pool.submit(copy_url, task_id, url, dest_path)
     return 0
 
-def print_target_info(filename: str, url: str, downloadDir: str):
+def print_target_info(filename: str, targetDate: str, url: str, downloadDir: str):
     call_datetime_cli("Here is today's malware sample information.")
     today = datetime.now().strftime('%Y-%m-%d')
     call_cli("Current datetime:  " + str(today))
@@ -123,6 +119,7 @@ def print_target_info(filename: str, url: str, downloadDir: str):
 
 
 def download_single_file(dateValue):
+    targetYear = dateValue[:4]  # Extract year from start date
     malStorageDir = os.path.join(MalSector, str(targetYear))
     os.makedirs(malStorageDir, exist_ok=True)
 
@@ -130,7 +127,7 @@ def download_single_file(dateValue):
     targetURL = f"https://datalake.abuse.ch/malware-bazaar/daily/{targetFileName}"
     downloadDir = os.path.join(malStorageDir, targetFileName)
 
-    print_target_info(targetFileName, targetURL, downloadDir)
+    print_target_info(targetFileName, dateValue, targetURL, downloadDir)
 
     if os.path.exists(downloadDir):
         call_datetime_cli("Today's target malware archive file already exists, skipping.")
@@ -173,7 +170,7 @@ def download_multi_file(startDatetimeDat, endDatetimeDat):
         targetURL = f"https://datalake.abuse.ch/malware-bazaar/daily/{targetFileName}"
         downloadDir = os.path.join(malStorageDir, targetFileName)
 
-        print_target_info(targetFileName, targetURL, downloadDir)
+        print_target_info(targetFileName, dateValue, targetURL, downloadDir)
         print("\n")
 
         # Check if the malware archive file already exists
