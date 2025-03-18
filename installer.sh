@@ -4,46 +4,53 @@
 # * software license : GPL2
 
 # checking permission about root
-if [ "$(id -u)" -ne "0" ]; then
-    echo "[ERROR] This script need root permision." >&2
+# check python3.12
+if command -v python3.12 >/dev/null 2>&1; then
+    echo "[INFO] System already has python3.12"
+    python3.12 --version
+else
+    # install python 3.12 as source make
+    echo ""
+    echo "[INFO] Installing Python 3.12"
+
+    # 필수 패키지 설치
+    sudo apt update -y
+    sudo apt install -y build-essential libssl-dev zlib1g-dev \
+        libncurses5-dev libnss3-dev libsqlite3-dev libreadline-dev \
+        libffi-dev curl libbz2-dev liblzma-dev libgdbm-dev libmpdec-dev \
+        libuuid1 tk-dev libncursesw5-dev libxml2-dev libxmlsec1-dev libexpat1-dev
+
+    # Python 3.12 소스 다운로드 및 컴파일
+    cd /usr/src
+    sudo wget https://www.python.org/ftp/python/3.12.2/Python-3.12.2.tgz
+    sudo tar xzf Python-3.12.2.tgz
+    cd Python-3.12.2
+
+    # 최적화 옵션을 활성화하고 빌드
+    sudo ./configure --enable-optimizations
+    sudo make -j$(nproc)
+    sudo make altinstall
+
+    echo "[INFO] Python 3.12 installation completed."
+fi
+
+# upgrading python3 pip with --break-system-packages
+python3.12 -m pip install --upgrade --force-reinstall pip --break-system-packages
+
+# install AMCS requirements with --break-system-packages
+if [ -f "requirements.txt" ]; then
+    python3.12 -m pip install -r requirements.txt --break-system-packages
+else
+    echo "[ERROR] requirements.txt 파일을 찾을 수 없습니다."
     exit 1
 fi
 
-# check python3.7
-if command -v python3.7 >/dev/null 2>&1; then
-    echo "[INFO] System already has python3.7"
-    python3.7 --version
-else
-    # install python 3.7 as source make
-    echo ""
-    echo "[INFO] Installing Python3.7"
-
-    sudo apt-get update -y
-    sudo apt-get install build-essential libssl-dev zlib1g-dev libncurses5-dev libnss3-dev libsqlite3-dev libreadline-dev libffi-dev curl libbz2-dev
-    cd /usr/src
-    sudo wget https://www.python.org/ftp/python/3.7.12/Python-3.7.12.tgz
-
-    sudo tar xzf Python-3.7.12.tgz
-    cd Python-3.7.12
-    sudo ./configure --enable-optimizations
-    sudo make altinstall
-fi
-
-# upgrading python3.7 pip
-python3.7 -m pip install --upgrade pip
-
-
-# install AMCS requirements
-if [ -f "requirements.txt" ]; then
-  python3.7 -m pip install -r requirements.txt
-else
-  echo "requirements.txt 파일을 찾을 수 없습니다."
-  exit 1
-fi
 
 
 # ---------------------------------------------------
 # make new account for AMCS service
+echo "" && echo ""
+echo "[INFO] Making new linux account for manage AMCS packages.."
 useradd -m -s /bin/bash malwareCollector
 
 # grant permission for edit crontab for malwareCollecter user
@@ -57,10 +64,10 @@ sudo passwd malwareCollector
 
 # Initiate AMCS installation
 if [ -f "setup_amcs.py" ]; then
-    python3.7 setup_amcs.py
+    python3 setup_amcs.py
 else
     echo "Cannot find AMCS 'installer.py' file in this directory."
-    echo "You can install manualy.   ex) python3.7 installer.py"
+    echo "You can install manualy.   ex) python3 installer.py"
     exit 1
 fi
 
