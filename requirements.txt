@@ -1,5 +1,4 @@
 configparser
-datetime
 urlopen
 rich
 pyfiglet
