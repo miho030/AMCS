@@ -261,8 +261,6 @@ def userRequest():
             exit(1)
 
 
-
-
 def main():
     print_ui()
 
@@ -271,9 +269,6 @@ def main():
         exit(1)
 
     userRequest()
-
-
-
 
 if __name__ == '__main__':
     main()
