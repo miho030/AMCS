@@ -34,7 +34,7 @@ config = configparser.ConfigParser()
 cl = Console()
 
 # ---------- read config file
-config.read(os.getcwd() + os.sep + iniFile, encoding='utf-8')
+config.read(iniFile, encoding='utf-8')
 author = config['INFO']['author']
 sfVersion = config['INFO']['sfVersion']
 
