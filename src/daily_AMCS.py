@@ -28,7 +28,8 @@ from rich.console import Console
 from rich.panel import Panel
 
 # ---------- import ini file
-iniFile="./amcs.ini" # 배포 전에 경로 변경 필요
+base_dir = os.path.dirname(os.path.abspath(__file__))
+iniFile = os.path.join(base_dir, "amcs.ini")
 config = configparser.ConfigParser()
 cl = Console()
 
@@ -128,7 +129,6 @@ def make_target_info():
 
     targetFileName = str(targetDate) + ".zip"
     targetURL = "https://datalake.abuse.ch/malware-bazaar/daily/" + targetFileName
-    #tempURL = "https://datalake.abuse.ch/malware-bazaar/daily/2024-05-01.zip"
     downloadDir = malStorageDir + targetFileName
     print_target_info(targetFileName, targetURL, downloadDir)
 
