@@ -110,5 +110,4 @@ CopyRight all reserved by github.com/miho030
 ---
 
 > GitHub [@miho030](https://github.com/miho030) &nbsp;&middot;&nbsp;
-> Twitter [@jp_rennka](https://twitter.com/jp_Rennka)
 
